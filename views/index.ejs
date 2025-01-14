@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NodeJS Web Server</title>
+    <title><%= title %></title>
 </head>
 <body>
 
@@ -23,6 +23,18 @@
         </li>
     </ul>
     <h1>Hello World</h1>
-    <p>Halo semua</p>
+    <p>Halo <%= nama %></p>
+
+    <h4>Daftar Mahasiswa</h4>
+    <!-- Melakukan looping dengan forEach terhadap array mahasiswa -->
+     <% if (mahasiswa.length < 1) { %>
+      <p>Data mahasiswa masih kosong</p>
+     <% } %>
+    <% mahasiswa.forEach(mhs => { %>
+    <ul>
+        <li>Nama: <%= mhs.nama %></li>
+        <li>Email: <%= mhs.email    %></li>
+    </ul>
+    <% }) %>
 </body>
 </html>
