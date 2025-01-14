@@ -2,9 +2,10 @@ const express = require('express');
 const expressLayouts = require('express-ejs-layouts');
 const app = express();
 const port = 3000;
+
 // gunakan ejs
 app.set('view engine', 'ejs');
-
+app.use(expressLayouts);
 
 
 // Bacanya:
@@ -27,6 +28,7 @@ app.get('/', (req, res) => {
     }
   ];
   res.render('index', { 
+    layout: 'layouts/main-layout', // layout yang digunakan
     nama: "Yefta Asyel", 
     title: "Home",
     // mahasiswa: mahasiswa
@@ -36,12 +38,14 @@ app.get('/', (req, res) => {
 
 app.get('/about', (req, res) => {
   res.render('about', {
+    layout: 'layouts/main-layout',
     title: "About",
   });
 });
 
 app.get('/contact', (req, res) => {
   res.render('contact', {
+    layout: 'layouts/main-layout',
     title: "Contact",
   });
 });
