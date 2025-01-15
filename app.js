@@ -1,11 +1,30 @@
 const express = require('express');
 const expressLayouts = require('express-ejs-layouts');
+const morgan = require('morgan');
 const app = express();
 const port = 3000;
 
 // gunakan ejs
 app.set('view engine', 'ejs');
-app.use(expressLayouts);
+
+// Third-party middleware
+app.use(expressLayouts); // ini juga adalah middleware
+app.use(morgan('dev'));
+
+// Build-in middleware
+app.use(express.static('public'));
+// app.use(express.static('nama_folder'));
+
+// Application level middleware
+app.use((req, res, next) => {
+  console.log('Time: ', Date.now());
+  next(); // agar setelah middleware ini, request bisa dilanjutkan ke middleware berikutnya
+})
+
+app.use((req, res, next) => {
+  console.log('Ini middleware kedua');
+  next();
+})
 
 
 // Bacanya:
@@ -56,7 +75,7 @@ app.get('/product/:id', (req, res) => {
 });
 
 // Apapun yg ditulis akan ditangkap sama .use ini. Ini bisa digunakan untuk menangani halaman yang tidak ditemukan
-app.use('/', (req, res) => {
+app.use((req, res) => {
     res.status(404);
     res.send('404: Page not found');
 });
